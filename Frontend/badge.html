@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <title>User Badges</title>
+    <style>
+        body {
+            background-color: #b3e3f8;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif; 
+            font-size: 60px; 
+            color: #333; 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        #back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        #back-button:hover {
+            background-color: #555;
+        }
+
+        #badges-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            width: calc(25% - 20px);
+            height: 300px;
+            border: solid 2px black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            background: linear-gradient(45deg, magenta, orange, purple);
+        }
+
+        .badge-item img {
+            display: block;
+            max-height: 200px;
+            max-width: 200px;
+            height: auto;
+            width: auto;
+        }
+
+        .badge-item p {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="back-button" onclick="goToHomepage()">Home</button>
+    
+    <h1>Your Badges</h1>
+    <div id="badges-container">
+        <!-- Badges will be loaded here -->
+    </div>
+   
+    <script>
+    // Navigate to the homepage
+    function goToHomepage() {
+        window.location.href = "homepage.html"; // Replace with your actual homepage URL
+    }
+
+    // Fetch user badges from the server
+    async function loadUserBadges() {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        const userId = userDetails.userId;
+
+        const response = await fetch(`http://localhost:3000/api/badges/${userId}`);
+        const badges = await response.json();
+
+        // Display badges on the badge page
+        const badgesContainer = document.getElementById('badges-container');
+        badges.forEach(badge => {
+            const badgeItem = document.createElement('div');
+            badgeItem.className = 'badge-item';
+
+            const badgeImage = document.createElement('img');
+            badgeImage.src = badge.imagePath; 
+            badgeImage.alt = badge.badge;
+            badgeItem.appendChild(badgeImage);
+
+            const badgeName = document.createElement('p');
+            badgeName.textContent = badge.badge;
+            badgeItem.appendChild(badgeName);
+
+            badgesContainer.appendChild(badgeItem);
+        });
+    }
+
+    // Load badges when the page loads
+    document.addEventListener('DOMContentLoaded', loadUserBadges);
+    </script>
+</body>
+</html>

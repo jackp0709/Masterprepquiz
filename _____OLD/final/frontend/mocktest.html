@@ -1,0 +1,29 @@
+<!-- mocktest.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test</title>
+    <link rel="stylesheet" href="/Style/mocktest.css"> <!-- External CSS for the mock test -->
+</head>
+<body>
+    <div class="timer">Time Left: <span id="timer"></span></div> <!-- Timer display -->
+    
+    <!-- Questions will be dynamically fetched and rendered here -->
+    <div id="questionContainer"></div>
+
+    <!-- Navigation buttons -->
+    <div class="navigation-buttons">
+        <button id="prevBtn" onclick="navigateQuestion(-1)">Previous</button>
+        <button id="nextBtn" onclick="navigateQuestion(1)">Next</button>
+    </div>
+
+    <!-- Question map -->
+    <div class="question-map">
+        <ul id="questionMap"></ul> <!-- Dynamic question progress tracker -->
+    </div>
+
+    <script src="./mocktest.js"></script> <!-- External JavaScript for the test -->
+</body>
+</html>

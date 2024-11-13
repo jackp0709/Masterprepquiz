@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><title>homepage</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Style/homepage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+<div class="all">
+    <div class="container">
+        <div class="menu" id="menu"><div class="upper">
+            <div class="profile">
+                <div class="circle"><a href="profile.html"><img src="/images/profile.jpeg"></a></div>
+                <h6>Jack Patel</h6>
+            </div>
+            <div class="rest">
+                <div class="marks"><img src="/images/bookmark.png"><p onclick="window.location.href='bookmark.html'">Bookmark</p></div>
+                <div class="marks"><img src="/images/target.png" ><p onclick="open_goal()">Study Goal</p></div>
+                <div class="marks"><img src="/images/QOD.png"><p onclick="open_QOD()">Question Of The Day</p></div>
+                <div class="marks"><img src="/images/achievement2.png"><p onclick="window.location.href='badge.html'">Achievements</p></div>
+            </div>
+        </div>
+        <div class="logout">
+            <div class="logout-button"><button>Log out</button></div>
+        </div>
+    </div>
+        <div class="left">
+            <a><button id="b1" onclick="toggle()"><img src="/images/DASHBOARD3.png"></button></a>
+                <h1>Masters Prep Quiz</h1>
+        </div>
+        <div class="right">
+            <nav><ul>
+                <a href="#"id="scrollExam"><li>Exams</li></a>
+                <a href="#"id="scrollabout"><li>About</li></a>
+                <a href="#" id="scrollcontact"><li>Contact</li></a>
+            </ul>
+            </nav>
+        </div>
+    </div>
+    <a href="https://www.shiksha.com/mba/cat-exam" id="headline"><marquee><div class="marquee">CAT Exam 24 Nov 2024</div></marquee></a>
+        <div class="image"><img src="/images/logonew.png"></div>
+        <div class="background-color"></div>
+        <div class="search-container">
+            <input type="text"  id="searchInput"  onkeyup="filterOptions()"  class="search-bar" placeholder="Search...">
+            <div id="dropdownList" class="dropdown-content"></div>
+        </div>
+        <div class="centerbox">
+            <div class="top">Master Your Entrance Exam</div><div class="line"></div>
+            <div class="bottom">Prepare, Practice, Achieve Success</div>   
+        </div>
+</div>
+
+	<div class="popup" id="popup">
+        <div class="headquiz">
+            <p>05/09/2024</p>
+            <h2>Question Of The Day</h2>
+        </div>
+        <div class="question">
+            <p><b> QUE:-Who was the first woman to become &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the Chief Minister of an Indian state? </b></p>
+            <ul id="quiz_options">
+                <li data-answer="1" onclick="selectOption(this)">Indira Gandhi</li>
+                <li data-answer="4" onclick="selectOption(this)">Mamta Banerjee</li>
+                <li data-answer="2" onclick="selectOption(this)">Sucheta Kripalani</li>
+                <li data-answer="5" onclick="selectOption(this)">Mayawati</li>                
+            </ul>
+        </div>
+        <div class="buttons">
+            <button class="submit-btn" onclick="submitAnswer()">Submit</button>
+            <button class="skip-btn" onclick="close_QOD()">Skip</button>
+        </div>
+    </div>
+
+    
+
+        <p class="exams" id="exams">EXAMS</p><p class="line2"></p>
+        <div class="exam-grid" id="exam-grid">
+            <div class="exam-box">
+                <a class="examname" id="CAT">CAT</a>
+                <p>The CAT (Common Admission Test) is a highly competitive entrance exam conducted annually by the Indian Institutes of Management (IIMs) for admission to various management programs.</p>
+                <a href="CAT.html" class="learn-more">Get&nbsp;Started>></a>
+            </div>
+            <div class="exam-box">
+                <a class="examname">CMAT</a>
+                <p>The CMAT (Common Management Admission Test) is a national-level entrance exam conducted by the National Testing Agency (NTA) for admission to MBA programs in various institutions across India.</p>
+                <a href="CMAT.html" class="learn-more">Get&nbsp;Started>></a>
+            </div>
+            <div class="exam-box">
+                <a class="examname">NIMCET</a>
+                <p>The NIMCET (NIT MCA Common Entrance Test) is an entrance exam conducted by the National Institutes of Technology (NITs) in India for admission in various NIT's to MCA programs.</p>
+                <a href="NIMCET.html" class="learn-more">Get&nbsp;Started>></a>
+            </div>  
+            <div class="exam-box">
+                <a class="examname">MAT</a>
+                <p>Management Aptitude Test, popularly known as MAT, is an entrance test that is being administered to aspiring candidates, who are willing to pursue a Master of Business Management as their professional career.</p>
+                <a href="MAT.html" class="learn-more">Get&nbsp;Started>></a>
+            </div>
+        </div>
+        <div id="aboutus">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <img src="/images/about us.png" >
+                <p>Welcome to our online quiz platform, your ultimate partner in preparing for competitive entrance exams like CAT, CMAT, NIMCET and MAT. Our quizzes are meticulously tailored to meet the specific needs of each exam, covering a broad range of topics and difficulty levels. Practice with our timed quizzes and use our comprehensive analytics to track your progress, identify your strengths and weaknesses, and boost your chances of success in gaining admission to master's degree programs.</p>
+            </div>
+        </div>
+        <div class="study" id="study">
+            <div class="title">STUDY GOALS<img src="/images/cross.png" class="close" onclick="close_goal()"/></div>
+            <div class="underline"></div>
+            <div class="add_goal">
+                <img src="/images/Goals.png" alt="Goal Icon">
+                <p class="goal_text">Set goals for your practice</p>
+                <button class="add" onclick="open_setgoal()">+</button> 
+            </div>
+            <div id="goalList" class="goalList">
+                <!-- Saved goals will appear here -->
+            </div>
+        </div>
+
+        <div class="set_goal" id="set_goal">
+            <div class="img2"><img src="/images/Goals2.png"><img src="/images/cross.png" class="close" onclick="close_setgoal()"/></div>
+            <h2>SET YOUR GOALS</h2>
+            <p>We recommend preparation for at least 5 days weekly for a better result.</p>
+        
+            <div class="form-group">
+                <label for="prep-days">Preparation days :</label>
+                <select id="prep-days">
+                    <option value="">Select days</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="first-day">First day of week :</label>
+                <select id="first-day">
+                    <option value="">Select day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+        
+            <div class="form-group-inline">
+                <div class="form-group">
+                    <label for="hours">Hours per day :</label>
+                    <select id="hours">
+                        <option value="">Select hours</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+
+                    </select>
+                </div>
+                <button class="save-btn" onclick="saveGoals()">SAVE</button>
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <a href="https://collegedunia.com/" target="_blank">
+                   <div class="slide123">
+                    <div class="slogan">TOP UNIVERSITIES</div>
+                    <div style="background-image: url('/images/msu2.jpg');"></div>
+                    </div>
+                </a>
+                <a href="https://itcareerswitch.co.uk/success-stories/" target="_blank">
+                    <div class="slide123">
+                    <div class="slogan">SUCCESS STORIES</div>
+                    <div  class="img3" style="background-image: url('/images/sucess4.jpg');"></div>
+                    </div>
+                </a>
+                <a href="https://www.theverge.com/tech" target="_blank">
+                    <div class="slide123">
+                        <div class="slogan">TRENDING TECH NEWS</div>
+                    <div style="background-image: url('/images/news3.jpg');"></div>
+                    </div>
+                </a>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">❮</button>
+            <button class="next" onclick="moveSlide(1)">❯</button>
+        </div>
+
+        <section style="margin-top:-84px" class="contact-us" id="contactus">
+            <h2 class="contact-heading">Contact Us</h2>
+            <div  id="instagram" class="contact-item">
+                <img src="/images/instagram.png" alt="Twitter" class="contact-icon">
+                <a href="https://www.instagram.com/mastersprepquiz/?utm_source=ig_web_button_share_sheet" target="_blank">Instagram</a>
+            </div>
+            <div  id="email" class="contact-item">
+                <img src="/images/email.png" alt="Email" class="contact-icon">
+                <a href="mailto:masterprepquiz@gmail.com" target="_blank">masterprepquiz@gmail.com</a>
+            </div>
+            <div  id="phone" class="contact-item">
+                <img src="/images/phone.png" alt="Phone" class="contact-icon">
+                <a href="https://chat.whatsapp.com/C0LNPGH7VdPJTgfWOo05XN" target="_blank">Whatsapp Community</a>
+            </div>
+            <div  id="linkedin" class="contact-item">
+                <img src="/images/linkedin.png" alt="LinkedIn" class="contact-icon">
+                <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+            </div>
+            <!-- Add more social handles if needed -->
+        </section>
+
+        
+        <script>
+            document.getElementById("scrollcontact").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevents the default link behavior
+    document.getElementById("contactus").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+             document.getElementById("scrollabout").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevents the default link behavior
+    document.getElementById("aboutus").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+            document.getElementById("scrollExam").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevents the default link behavior
+    document.getElementById("exams").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+
+            function toggle() {
+                let menuBar = document.getElementById('menu');
+                menuBar.classList.toggle('show');
+            }
+
+            let study = document.getElementById("study");
+
+            function open_goal() {
+                study.classList.add("open_goal");
+                let background = document.querySelector('.all');
+                background.classList.add("blurred");
+
+            }
+            function close_goal() {
+                study.classList.remove("open_goal");
+                let background = document.querySelector('.all');
+                background.classList.remove("blurred");
+            }
+
+            let set_goal = document.getElementById("set_goal");
+
+            function open_setgoal() {
+                set_goal.classList.add("open_setgoal");
+                let background = document.querySelector('.study');
+                background.classList.add("blurred");
+
+            }
+            function close_setgoal() {
+                set_goal.classList.remove("open_setgoal");
+                let background = document.querySelector('.study');
+                background.classList.remove("blurred");
+            }
+            
+            document.addEventListener("DOMContentLoaded", function() {
+                //localStorage.removeItem("goals");
+                loadSavedGoals();});
+
+function saveGoals() {
+    const prepDays = document.getElementById("prep-days").value;
+    const firstDay = document.getElementById("first-day").value;
+    const hoursPerDay = document.getElementById("hours").value;
+
+    if (prepDays && firstDay && hoursPerDay) {
+        let goals = JSON.parse(sessionStorage.getItem("goals")) || [];
+        const newGoal = {
+            prepDays: prepDays,
+            firstDay: firstDay,
+            hoursPerDay: hoursPerDay
+        };
+        goals.push(newGoal);
+        sessionStorage.setItem("goals", JSON.stringify(goals));
+        loadSavedGoals();
+        close_setgoal(); // Close the form after saving
+    } else {
+        alert("Please fill out all fields before saving.");
+    }
+}
+
+function loadSavedGoals() {
+    const goals = JSON.parse(sessionStorage.getItem("goals")) || [];
+    const goalList = document.getElementById("goalList");
+    goalList.innerHTML = "";
+
+    if (goals.length > 0) {
+        goals.forEach((goal, index) => {
+            goalList.innerHTML += `
+                <div class="add_goal">
+                    <p class="goal_text">Goal ${index + 1}: ${goal.prepDays} days, ${goal.firstDay}, ${goal.hoursPerDay} hours/day</p>
+                </div>
+            `;
+        });
+    } else {
+        goalList.innerHTML = "<p>No goals set yet.</p>";
+    }
+}
+
+
+            let popup = document.getElementById("popup");
+            let selectedOption = null;
+
+            function open_QOD() {
+                popup.classList.add("open_QOD");
+                let background = document.querySelector('.all');
+                background.classList.add("blurred");
+
+            }
+            function close_QOD() {
+                popup.classList.remove("open_QOD");
+                let background = document.querySelector('.all');
+                background.classList.remove("blurred");
+
+            }
+            function selectOption(element) {
+            // Clear previous selection
+                let options = document.querySelectorAll('#quiz_options li');
+                options.forEach(option => option.classList.remove('selected'));
+
+            // Mark the selected option
+                element.classList.add('selected');
+                selectedOption = element;
+            }
+
+            function submitAnswer() {
+                let correctAnswer = "2"; // The correct answer
+                let options = document.querySelectorAll('#quiz_options li');
+            
+            // Disable further selections
+                options.forEach(option => option.style.pointerEvents = 'none');
+
+                if (selectedOption) {
+                if (selectedOption.getAttribute('data-answer') === correctAnswer) {
+                    selectedOption.classList.remove('selected');
+                    selectedOption.classList.add('correct');
+                } else {
+                    selectedOption.classList.remove('selected');
+                    selectedOption.classList.add('incorrect');
+                    // Highlight the correct answer
+                    options.forEach(option => {
+                        if (option.getAttribute('data-answer') === correctAnswer) {
+                            option.classList.add('correct');
+                        }
+                    });
+                }
+            }
+            }
+
+           
+
+
+
+
+
+
+
+            const options = [
+    { name: "MAT", url: "mat.html" },
+    { name: "CAT", url: "cat.html" },
+    { name: "NIMCET", url: "nimcet.html" },
+    { name: "CMAT", url: "cmat.html" },
+
+];
+document.getElementById("searchInput").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        handleEnterPress();
+    } else {
+        filterOptions();
+    }
+});
+
+function filterOptions() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const dropdown = document.getElementById("dropdownList");
+    
+    dropdown.innerHTML = '';
+    
+    if (input) {
+        const filteredOptions = options.filter(option => option.name.toLowerCase().includes(input));
+        filteredOptions.forEach(option => {
+            const optionDiv = document.createElement("div");
+            optionDiv.textContent = option.name;
+            optionDiv.onclick = () => fillSearchBar(option.name);
+            dropdown.appendChild(optionDiv);
+        });
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
+function fillSearchBar(selectedOption) {
+    document.getElementById("searchInput").value = selectedOption;
+    document.getElementById("dropdownList").style.display = "none";
+    searchInput.focus(); 
+}
+
+function handleEnterPress() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const selectedOption = options.find(option => option.name.toLowerCase() === input);
+
+    if (selectedOption) {
+        window.location.href = selectedOption.url; // Redirect to the selected page
+    } else {
+        alert("No matching option found.");
+    }
+}
+
+let currentIndex = 0;
+
+function moveSlide(direction) {
+    const slider = document.getElementById('slider');
+    const totalSlides = slider.children.length;
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+        currentIndex = totalSlides - 1;
+    } else if (currentIndex >= totalSlides) {
+        currentIndex = 0;
+    }
+
+    const offset = -currentIndex * 100; // Move the slider by 100% for each slide
+    slider.style.transform = `translateX(${offset}%)`;
+}
+
+
+
+
+
+
+
+
+        </script>
+</body>
+</html>

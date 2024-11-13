@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link rel="stylesheet" href="result.css">
+</head>
+<body>
+    <h1>CMAT Mock Results</h1>
+
+    <!-- Summary Section -->
+    <div id="summary">
+        <p id="correct-answers"></p>
+        <p id="total-questions"></p>
+        <p id="percentage"></p>
+        <p id="marks"></p>
+    </div>
+<br><br><br><br><br>
+    <!-- Pie Chart Section -->
+    <canvas id="results-chart"></canvas>
+
+    <canvas id="topic-bar-chart"></canvas>
+    <div class="blue"></div><p>Quantitative Ability</p>
+    <div class="green"></div><p>General Knowledge</p>
+    <div class="yellow"></div><p>Logical Reasoning</p>
+    <div class="orange"></div><p>Innovation&Entreprenuership</p>
+    <div class="purple"></div><p>English</p>
+   <div id="topic-summary"></div>
+    <!-- Answer Key Section -->
+    <div id="answer-key"></div>
+        <h2>Answer Key</h2>
+        <ul id="answer-list" style="margin-left: 10px;"></ul></div>
+        <button id="back-button" onclick="location.href='#'">Back</button>
+
+    <script src="cmat_result.js"></script>
+</body>
+</html>

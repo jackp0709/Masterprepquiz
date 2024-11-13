@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("/images/background60.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .profile-container {
+            background-color: #f7f9fa84;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #2dcaf1f3;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            border: 4px solid #007bff;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .profile-picture-edit-mode {
+            border-color: #ff6f00; /* Reddish orange */
+        }
+
+        .profile-picture-input {
+            display: none; /* Hide the file input */
+        }
+
+        .profile-details {
+            margin: 20px 0;
+        }
+
+        .profile-item {
+            margin-bottom: 20px;
+            text-align: left;
+            color: #bbb;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-item label {
+            flex: 1;
+            font-weight: bold;
+            color: #274681;
+        }
+
+        .profile-item input {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: rgb(254, 252, 252);
+            color: #000000;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .profile-item input:focus {
+            border-color: #007bff;
+        }
+
+        .profile-actions {
+            margin-top: 30px;
+        }
+
+        .profile-actions button {
+            background-color: #274681;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-actions button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .profile-actions button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-picture" id="profilePicture" onclick="changeProfilePicture()"></div>
+        <input type="file" id="profilePictureInput" class="profile-picture-input" accept="image/*" onchange="updateProfilePicture(event)">
+        <div class="profile-details">
+            <div class="profile-item">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName">
+            </div>
+            <div class="profile-item">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" readonly>
+            </div>
+            <div class="profile-item">
+                <label for="gender">Select Gender:</label>
+                <input list="genders" id="gender" name="gender" placeholder="Select your gender...">
+                <datalist id="genders">
+                    <option value="Male">
+                    <option value="Female">
+                </datalist>
+            </div>
+        </div>
+        <div class="profile-actions">
+            <button type="button" id="editButton" onclick="toggleEditMode()">Edit</button>
+            <button type="button" id="saveButton" onclick="saveChanges()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        let isEditMode = false;
+        let profilePictureUrl = '';
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem('email');
+    console.log('Fetching profile for email:', email);
+    fetch(`/profile?email=${email}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Prefill the fields with the fetched data
+        document.getElementById('firstName').value = data.name || ''; // Assuming name field maps to firstName
+        document.getElementById('email').value = data.email || ''; // Email field is not editable
+        document.getElementById('gender').value = data.gender || ''; // Fill gender if available
+
+        // Uncomment and adjust this if you wish to log fetched data
+        // console.log('Fetched Data is', data);
+    })
+    .catch(error => {
+        console.error('Error fetching profile data:', error);
+    });
+
+    // Load the saved profile picture from localStorage
+    const savedPicture = localStorage.getItem('profilePicture');
+    if (savedPicture) {
+        document.getElementById('profilePicture').style.backgroundImage = `url(${savedPicture})`;
+        profilePictureUrl = savedPicture;
+    } else {
+        // Set a default profile picture if none exists in localStorage
+        document.getElementById('profilePicture').style.backgroundImage = "url('/images/profile.jpeg')";
+    }
+});
+
+
+
+
+
+
+
+
+
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const profilePicture = document.getElementById('profilePicture');
+            const editButton = document.getElementById('editButton');
+
+            if (isEditMode) {
+                profilePicture.classList.add('profile-picture-edit-mode');
+                editButton.textContent = 'Cancel';
+            } else {
+                profilePicture.classList.remove('profile-picture-edit-mode');
+                editButton.textContent = 'Edit';
+            }
+        }
+
+        function changeProfilePicture() {
+            if (isEditMode) {
+                document.getElementById('profilePictureInput').click();
+            }
+        }
+
+        function updateProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePictureUrl = e.target.result;
+                    document.querySelector('.profile-picture').style.backgroundImage = `url(${profilePictureUrl})`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveChanges() {
+            if (isEditMode) {
+                const profilePicture = document.querySelector('.profile-picture');
+                profilePicture.classList.remove('profile-picture-edit-mode');
+                document.getElementById('editButton').textContent = 'Edit';
+                isEditMode = false;
+
+                // Save the profile picture URL in localStorage
+                localStorage.setItem('profilePicture', profilePictureUrl);
+            }
+        }
+    </script>
+</body>
+</html>

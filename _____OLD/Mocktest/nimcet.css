@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:#BCE6F8;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .image{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 200px;
+   height: 100px;
+  }
+  .image img{
+  height: 220px;
+  width: 400px;
+  }
+  .container {
+    margin-top: 120px;
+    width:100vw;
+    padding: 20px;
+    background-color:#b3e3f8;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(8, 152, 235, 0.1);
+  }
+  
+  #question-container {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+  #question-text{
+  font-size: 22px; 
+  }
+  
+  h1{
+    position: absolute;
+  margin-top: -320px;
+  margin-left: 75px;
+  }
+  
+  
+  h2 {
+    margin-top: 0;
+  }
+  canvas{
+  max-width: 60%;
+  width: auto;
+  max-height: 70%;
+  height: auto;
+  
+  }
+  #options{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  #radio-option{
+  transform: scale(1.2);
+  
+  }
+  
+  #options label {
+    font-size: 19px;
+    display: inline;
+    margin-bottom: 10px;
+    vertical-align: top;
+  }
+  
+  .navigation {
+    display: flex;
+    justify-content:space-between;
+    margin-top: 30px;
+    padding-top: 80px;
+  }
+  
+  button {
+    height: 50px;
+    width: 120px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  button:hover{
+  font-size: 21px;
+  background-color: aqua;
+  transition: 0.2s ease-in;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+  }
+  
+  #submit-btn {
+    display: none;
+    background-color: #28A745;
+  }
+  
+  #question-map {
+    margin-top: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 207px; 
+    overflow-y: auto;
+    scrollbar-width: none; 
+  }
+  
+  #question-map .question-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 40px);
+    grid-gap: 18px;
+  }
+  
+  #question-map span {
+    padding: 5px;
+    margin-left: 3px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  #question-map .answered {
+    background-color:#000080; 
+    color: white;
+  }
+  
+  #question-map .unanswered {
+    background-color:#636161cb; 
+    color: white;
+  }
+  #timer {
+    position: absolute;
+    top: 0;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #ff0000; 
+  }

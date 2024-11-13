@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAT-Mathemetics</title>
+    <link rel="stylesheet" href="/Style/topicwise.css">
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1>MAT-Mathematics</h1>
+        </div>
+        <h2 style="color: #FF5733; font-size: 18px; text-align: center;">!!!!!!!!!!Complete all questions to view the correct answers.!!!!!!!!!!</h2>
+        <div class="back-button">
+            <button onclick="window.location.href='../MAT.html'">Back</button>
+        </div>
+        <div id="questions-list">
+            <!-- Questions will be dynamically loaded here -->
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-section">
+            <button class="submit-btn" type="button" onclick="submitQuiz()">Submit</button>
+        </div>
+
+        <div id="result"></div> <!-- Area to show the result -->
+    </div>
+
+    <script>
+    const collectionName = 'mat_MATHS';
+    // Load Questions Function
+    async function loadQuestions() {
+        const response = await fetch(`http://localhost:3000/api/questions/${collectionName}`);
+        const questions = await response.json();
+        console.log('Fetched Questions:', questions);
+
+        const questionsList = document.getElementById('questions-list');
+        questions.forEach((question, qIndex) => {
+            const questionItem = document.createElement('div');
+            questionItem.className = 'question-item';
+
+            // Question number
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'question-number';
+            questionNumber.textContent = `${qIndex + 1}.`;
+            questionItem.appendChild(questionNumber);
+
+            // Question text
+            const questionText = document.createElement('p');
+            questionText.textContent = question.question;
+            questionItem.appendChild(questionText);
+
+            // Options as radio buttons
+            question.options.forEach((option, key) => {
+                const optionLabel = document.createElement('label');
+                optionLabel.className = `label-${question._id} option-${key}`;
+
+                const radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.name = `question${qIndex}`;
+                radioInput.value = key;
+                radioInput.dataset.questionId = question._id;
+
+                optionLabel.appendChild(radioInput);
+                optionLabel.appendChild(document.createTextNode(` ${option}`));
+                questionItem.appendChild(optionLabel);
+            });
+
+            // Hint icon
+            const hintIcon = document.createElement('img');
+            hintIcon.src = '/images/hint.png';
+            hintIcon.alt = 'Hint';
+            hintIcon.className = 'hint-image';
+            hintIcon.onclick = () => showHint(`hint-${question._id}`);
+            questionItem.appendChild(hintIcon);
+
+            const bookmarkButton = document.createElement('img');
+bookmarkButton.src = '/images/bookmark.png';  // Replace with the actual image path
+bookmarkButton.alt = 'Bookmark';
+bookmarkButton.style.width="20px";
+bookmarkButton.style.height="20px";
+bookmarkButton.className = 'bookmark-btn';  // Add any classes if needed
+
+// Add click event listener
+bookmarkButton.onclick = () => bookmarkQuestion(question._id);
+
+// Append the image to the question item
+questionItem.appendChild(bookmarkButton);
+            // Hint text (initially hidden)
+            const hintText = document.createElement('div');
+            hintText.id = `hint-${question._id}`;
+            hintText.className = 'hint-text';
+            hintText.textContent = question.hint;
+            hintText.style.display = 'none';
+            questionItem.appendChild(hintText);
+
+            questionsList.appendChild(questionItem);
+        });
+
+        function showHint(hintId) {
+            const hintElement = document.getElementById(hintId);
+            hintElement.style.display = hintElement.style.display === 'block' ? 'none' : 'block';
+        }
+    }
+    async function bookmarkQuestion(questionId) {
+    try {
+        const response = await fetch('http://localhost:3000/api/bookmark', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ questionId, collectionName })
+        });
+        const result = await response.json();
+        console.log(result);
+        alert('Question bookmarked successfully!');
+    } catch (err) {
+        console.error('Error bookmarking question:', err);
+        alert('Error bookmarking question!');
+    }
+}
+
+    // Function to submit the quiz
+    async function submitQuiz() {
+        const answers = [];
+        const selectedRadios = document.querySelectorAll('input[type="radio"]:checked');
+
+        selectedRadios.forEach(radio => {
+            const questionId = radio.dataset.questionId;
+            const selectedOption = radio.value.trim().toLowerCase();
+            answers.push({ questionId, selectedOption });
+        });
+
+        const response = await fetch('http://localhost:3000/api/submit_exam', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ answers, collectionName: 'mat_MATHS' })
+        });
+
+        const result = await response.json();
+        document.getElementById('result').textContent = `You scored ${result.score} out of 25`;
+
+        // Display correct/incorrect answers
+        result.results.forEach(res => {
+            const selectedLabels = document.querySelectorAll(`.label-${res.questionId}.option-${res.selectedOption}`);
+            selectedLabels.forEach(label => {
+                if (res.isCorrect) {
+                    label.classList.add('correct'); // Correct answer - green marker
+                } else {
+                    label.classList.add('incorrect'); // Incorrect answer - red marker
+
+                    // Also mark the correct answer with green
+                    const correctLabels = document.querySelectorAll(`.label-${res.questionId}.option-${res.correctOption}`);
+                    correctLabels.forEach(correctLabel => {
+                        correctLabel.classList.add('correct');
+                    });
+                }
+            });
+        });
+
+        // Call badge awarding function after score is displayed
+        awardBadges(result.score);
+    }
+
+    // Function to award badges based on the user's score
+    async function awardBadges(score) {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        const userId = userDetails.userId;
+        console.log('User ID for Badge:', userId);
+
+        let badge = '';
+        let badgeImage = ''; // To store badge image URL
+
+        if (score === 25) {
+            badge = 'MAT-Maths Grandmaster';
+            badgeImage = '/images/diamond.png'; // Badge for perfect score
+        } else if (score > 20) {
+            badge = 'MAT-Maths Expert';
+            badgeImage = '/images/gold.png'; // Badge for score above 20
+        } else if (score > 15) {
+            badge = 'MAT-Maths Prodigy';
+            badgeImage = '/images/silver.png'; // Badge for score above 15
+        } else if (score > 0) {
+            badge = 'MAT-Maths Learner';
+            badgeImage = '/images/bronze.png'; // Badge for score above 10
+            if (badge) {
+        window.alert(`Congratulations! You've earned the ${badge} badge!`);
+    }
+        }
+
+        // API call to store badge in the database
+        try {
+            const badgeResponse = await fetch(`http://localhost:3000/api/badges/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ badge, badgeImage }) // Send both badge name and image
+            });
+
+            const badgeResult = await badgeResponse.json();
+            if (badgeResponse.ok) {
+                console.log(`Badge "${badge}" awarded successfully.`);
+            } else {
+                console.log(badgeResult.msg);
+            }
+        } catch (error) {
+            console.error('Error awarding badge:', error);
+        }
+    }
+
+    // Load questions when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const userDetails = {
+            userId: '123',
+            name: 'jack',
+            email: 'jack@gmail.com'
+        };
+
+        // Store user details in localStorage
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        console.log(userDetails);
+        
+        loadQuestions();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #BCE6F8;
+}
+
+.container {
+    display: flex;
+    overflow: hidden;
+}
+
+.image {
+    max-width: 100%;
+    width: auto;
+    height: 100vh;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form {
+    height: 99vh;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 35px;
+    padding-top: 10px;
+    padding-left: 5px;
+    margin-top: 0px;
+    text-align: left;
+}
+
+.loginform {
+    background-color: rgb(255, 255, 255);
+    width: 500px;
+    height: 630px;
+    border-radius: 10px;
+    margin: auto;
+    font-size: 18px;
+    padding: 20px; /* Added padding for better spacing */
+}
+
+.loginform input {
+    width: calc(88% - 20px); /* Adjusted width for input fields */
+    border: solid 2px white;
+    border-bottom-color: black;
+    transition: border-bottom-color 0.3s ease; /* Added 's' for seconds */
+    outline: none;
+    height: 20px;
+    font-size: 17px;
+    margin: 10px 10px ; /* Changed to vertical margin */
+    padding: 5px; /* Added padding for input */
+}
+
+.loginform input:focus {
+    border-bottom-color: black;
+}
+
+.loginform label {
+    font-family: Geneva, Tahoma, sans-serif;
+    margin-top: 5px;
+    margin-left: 2%;
+    margin-right: 40px;
+    display: block;
+    font-size: 19px;
+}
+
+.form1 {
+    margin-top: 5px;
+}
+
+.gender {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    display: flex; /* Changed to flex to align items in a single line */
+    align-items: center; /* Vertically center align items */
+}
+
+.gender input {
+    margin-top: 18px;
+    margin-left: -30px; /* Adjusted margin for spacing between label and radio button */
+    margin-right: 50px;
+    width: auto; /* Let the radio buttons adjust to their size */
+}
+
+.gender-mf {
+    font-size: 20px;
+    margin-left: 150px;
+}
+.password {
+    width: 100%;
+    margin-left: -13px;
+    display: flex; /* Set display to flex to align the input and eye icon */
+    align-items: center; /* Center vertically */
+}
+
+.password input {
+    width: calc(100% - 30px); /* Adjust width to allow for the eye icon */
+    margin-left: 5%;
+    height: 25px; /* Height adjustment */
+}
+
+.password img {
+    width: 25px;
+    margin-left: 10px;
+    cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.submit {
+    font-size: 25px;
+    color: white;
+    background-color: #274681;
+    margin-top: 15px;
+    margin-left: 10%;
+    border-radius: 5px;
+    width: 80%;
+    height: 40px;
+}
+
+.gender-mf {
+    margin-left: 50px;
+}
+
+
+.message {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#message {
+    margin-top: 18px;
+}

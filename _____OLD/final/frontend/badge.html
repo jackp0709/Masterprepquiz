@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Badges</title>
+</head>
+<body>
+    <div id="badges-container">
+        <!-- Badges will be loaded here -->
+    </div>
+    <h1>Your Badges</h1>
+    
+    <script>
+    // Fetch user badges from the server
+    async function loadUserBadges() {
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        const userId = userDetails.userId;
+
+        const response = await fetch(`http://localhost:3000/api/badges/${userId}`);
+        const badges = await response.json();
+
+        // Display badges on the badge page
+        const badgesContainer = document.getElementById('badges-container');
+        badges.forEach(badge => {
+            const badgeItem = document.createElement('div');
+            badgeItem.className = 'badge-item';
+
+            const badgeImage = document.createElement('img');
+            badgeImage.src = badge.imagePath; // Use imagePath to load the badge image
+            badgeImage.alt = badge.badge;
+            badgeItem.appendChild(badgeImage);
+
+            const badgeName = document.createElement('p');
+            badgeName.textContent = badge.badge;
+            badgeItem.appendChild(badgeName);
+
+            badgesContainer.appendChild(badgeItem);
+        });
+    }
+
+    // Load badges when the page loads
+    document.addEventListener('DOMContentLoaded', loadUserBadges);
+    </script>
+</body>
+</html>

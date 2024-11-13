@@ -1,0 +1,193 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color:#BCE6F8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+.image{
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 200px;
+ height: 100px;
+}
+.image img{
+height: 220px;
+width: 400px;
+}
+.container {
+  margin-top: 120px;
+  width:100vw;
+  padding: 20px;
+  background-color:#BCE6F8;
+  border-radius: 10px;
+  
+}
+
+#question-container {
+  background-color:#BCE6F8;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+#question-text{
+font-size: 22px; 
+}
+
+h1{
+  position: absolute;
+margin-top: -320px;
+margin-left: 75px;
+}
+
+
+h2 {
+  margin-top: 0;
+}
+canvas{
+max-width: 60%;
+width: auto;
+max-height: 70%;
+height: auto;
+
+}
+#options{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+#radio-option{
+transform: scale(1.2);
+
+}
+
+#options label {
+  font-size: 19px;
+  display: inline;
+  margin-bottom: 10px;
+  vertical-align: top;
+}
+
+.navigation {
+  display: flex;
+  justify-content:space-between;
+  margin-top: 30px;
+  padding-top: 80px;
+}
+
+button {
+  height: 50px;
+  width: 120px;
+  padding: 10px 15px;
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  font-size: 19px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button:hover{
+font-size: 21px;
+background-color: aqua;
+transition: 0.2s ease-in;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+#submit-btn {
+  display: none;
+  background-color: #28A745;
+}
+
+#question-map {
+  margin-right:  -40px;
+  margin-top: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 150px; 
+  overflow-y: auto;
+  scrollbar-width: none; 
+}
+
+#question-map .question-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 40px);
+  grid-gap: 3px;
+}
+
+#question-map span {
+  padding: 5px;
+  margin-left: 3px;
+  border-radius: 50%;
+  width: 25px;
+  height: 24px;
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-size: 15px;
+}
+#question-map .answered {
+  background-color:#000080; 
+  color: white;
+}
+
+#question-map .unanswered {
+  background-color:#636161cb; 
+  color: white;
+}
+#timer {
+  position: absolute;
+  top: 0;
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #ff0000; 
+}
+
+.circular-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-top: 15px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #007BFF;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s, border 0.3s;
+}
+
+.circular-checkbox:checked {
+  background: #007BFF;
+  border: 2px solid #0056b3;
+}
+
+.circular-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#options label {
+  gap: 50px;
+  font-size: 19px;
+  display: inline;
+  margin-bottom: 10px;
+  vertical-align: top;
+  margin-left: 10px; /* Space between checkbox and label */
+}

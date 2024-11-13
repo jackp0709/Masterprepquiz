@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link rel="stylesheet" href="/Style/result.css">
+</head>
+<body>
+    <h1>MAT Mock Results</h1>
+
+    <!-- Summary Section -->
+    <div id="summary">
+        <p id="correct-answers"></p>
+        <p id="total-questions"></p>
+        <p id="percentage"></p>
+        <p id="marks"></p>
+    </div>
+<br><br><br><br><br>
+    <!-- Pie Chart Section -->
+    <canvas id="results-chart"></canvas>
+
+    <canvas id="topic-bar-chart"></canvas>
+    <div id="color-section">
+    <div class="blue"></div><p>Mathematics</p>
+    <div class="green"></div><p>Intelligence and Critical Reasoning</p>
+    <div class="yellow"></div><p>Indian and Global Environment</p>
+    <div class="orange"></div><p>Data Analysis and Sufficiency</p>
+    <div class="purple"></div><p>Language Comprehension</p></div>
+   <div id="topic-summary"></div>
+    <!-- Answer Key Section -->
+    <div id="answer-key">
+        <h2>Answer Key</h2>
+        <ul id="answer-list" style="margin-left: 120px;"></ul></div>
+        <button id="back-button" onclick="location.href='../MAT.html'">Back</button>
+
+    <script>
+
+        window.onload = function() {
+            const correctCount = parseInt(localStorage.getItem('correctCount')) || 0;
+            const totalQuestions = parseInt(localStorage.getItem('totalQuestions')) || 1; // Avoid division by zero
+            const incorrectCount = JSON.parse(localStorage.getItem('incorrectAnswers'))?.length || 0;
+            const unattemptedCount = JSON.parse(localStorage.getItem('unattempted'))?.length || 0;
+            const marks = parseInt(localStorage.getItem('marks')) || 0;
+        
+            // Update summary
+            document.getElementById('correct-answers').textContent = `Correct Answers: ${correctCount}`;
+            document.getElementById('total-questions').textContent = `Total Questions: ${totalQuestions}`;
+            document.getElementById('percentage').textContent = `Percentage: ${((correctCount / totalQuestions) * 100).toFixed(2)}%`;
+            document.getElementById('marks').textContent = `Marks: ${marks} out of 150`; 
+            // Create pie chart for Correct, Incorrect, and Unattempted
+            const ctx = document.getElementById('results-chart').getContext('2d');
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Correct', 'Incorrect', 'Unattempted'],
+        datasets: [{
+            data: [correctCount, incorrectCount, unattemptedCount],
+            backgroundColor: ['#28A745', '#DC3545', '#6C757D']
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false, // Allows custom width/height
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    boxWidth: 20, // Adjust the size of legend boxes
+                    padding: 15,  // Adjust padding between legend items
+                    usePointStyle: true,  // Use circular points for the legend
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        let label = context.label || '';
+                        if (label) {
+                            label += ': ' + context.raw + ' (' + ((context.raw / totalQuestions) * 100).toFixed(2) + '%)';
+                        }
+                        return label;
+                    }
+                }
+            }
+        },
+        layout: {
+            padding: {
+                top: 20,  // Add padding to the top of the chart to fit legend
+            }
+        }
+    }
+});
+
+            
+        
+            // Create bar graph for topic-wise correct answers
+            const topicCorrectCounts = JSON.parse(localStorage.getItem('topicCorrectCounts')) || {};
+            const colors = ['blue','green','yellow','orange','purple'];
+            
+            const barCtx = document.getElementById('topic-bar-chart').getContext('2d');
+            
+            // Prepare the dataset with colors
+            const barColors = Object.keys(topicCorrectCounts).map((_, index) => colors[index % colors.length]);
+            
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(topicCorrectCounts), // Topic names
+                    datasets: [{
+                        data: Object.values(topicCorrectCounts), // Correct counts per topic
+                        backgroundColor: barColors,
+                        barThickness: 60,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 20 // Change this to your desired font size
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Correct Answers'
+                            },
+                            ticks: {
+                                stepSize: 5, // Set the step size
+                                max: 50, // Maximum value of y axis
+                                callback: function(value) {
+                                    return value; // Display each tick value
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // This hides the legend if it’s still appearing
+                        }
+                    }
+                }
+            });
+            const answerList = document.getElementById('answer-list');
+        console.log(answerList);  // Check if this returns a valid element
+        answerList.innerHTML = '';
+        const answerKey = JSON.parse(localStorage.getItem('answerKey')) || {};
+            Object.entries(answerKey).forEach(([questionNo, correctOption]) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${questionNo}: ${correctOption}`;
+                answerList.appendChild(listItem)});
+        
+                const topicSummary = document.getElementById('topic-summary');
+                topicSummary.innerHTML = '<h6>Topic-wise Results</h6>'; // Header for the summary
+            
+                const topicTotalCounts = JSON.parse(localStorage.getItem('topicTotalCounts')) || {};
+        
+                Object.keys(topicCorrectCounts).forEach((topic) => {
+                    const correctAnswers = topicCorrectCounts[topic] || 0;
+                    const totalQuestionsForTopic = topicTotalCounts[topic] || 0;
+                    const topicItem = document.createElement('p');
+                    topicItem.textContent = `${topic}: ${correctAnswers} correct out of ${totalQuestionsForTopic} questions`;
+                    topicSummary.appendChild(topicItem);
+                });
+        
+        
+        
+        
+        
+        
+        
+        
+        };
+        
+        </script>
+</body>
+</html>

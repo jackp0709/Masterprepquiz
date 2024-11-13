@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .search-container {
+    position: relative;
+    width: 200px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-content div:hover {
+    background-color: #f1f1f1;
+}
+</style>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterOptions()" placeholder="Search...">
+        <div id="dropdownList" class="dropdown-content"></div>
+    </div>
+    <script>
+        const options = ["Apple", "Banana", "Orange", "Mango", "Strawberry", "Blueberry", "Pineapple"];
+
+function filterOptions() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const dropdown = document.getElementById("dropdownList");
+    
+    dropdown.innerHTML = '';
+    
+    if (input) {
+        const filteredOptions = options.filter(option => option.toLowerCase().includes(input));
+        filteredOptions.forEach(option => {
+            const optionDiv = document.createElement("div");
+            optionDiv.textContent = option;
+            optionDiv.onclick = () => selectOption(option);
+            dropdown.appendChild(optionDiv);
+        });
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
+function selectOption(option) {
+    document.getElementById("searchInput").value = option;
+    document.getElementById("dropdownList").style.display = "none";
+}
+
+    </script>
+</body>
+</html>

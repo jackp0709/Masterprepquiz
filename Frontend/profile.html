@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="profile.css">
+  <style>.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #274681; /* Use your desired color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .back-button:hover {
+    background-color: #1e3560; /* Darker shade on hover */
+  }
+</style>
+</head>
+<body>
+  <a class="back-button" id="profile-link">Back</a>
+  <div class="profile-container">
+    <h1><b>Profile Details</b></h1>
+    <div class="profile-picture" id="profilePicture" onclick="changeProfilePicture()"></div>
+    <input type="file" id="profilePictureInput" class="profile-picture-input" accept="image/*" style="display:none;" onchange="updateProfilePicture(event)">
+    
+    <div class="details">
+      <div>
+        <strong>First Name:</strong>
+        <input type="text" id="firstName" class="info" readonly>
+      </div>
+      <div>
+        <strong>Username:</strong>
+        <div class="info"> 
+          <span id="username" style="width: 300px;"></span>
+        </div>
+      </div>
+      <div>
+        <strong>Last Name:</strong>
+        <input type="text" id="lastName" class="info" readonly>
+      </div>
+      <div>
+        <strong>Email:</strong>
+        <div class="info">
+          <span id="email"></span>
+        </div>
+      </div>
+      <div>
+        <strong>Phone:</strong>
+        <input type="text" id="phone" class="info" readonly>
+      </div>
+      <div>
+        <strong>Gender:</strong>
+        <div class="info">
+          <span id="gender"></span>
+        </div>
+      </div>
+      <div>
+        <strong>Birth Date:</strong>
+        <input type="date" id="birthDate" class="info" readonly>
+      </div>
+      <div>
+        <button class="editProfileBtn" id="editProfileBtn">Edit Profile</button>
+      </div>
+    </div>
+    <button id="saveProfileBtn" style="display: none;">Save Profile</button>
+  </div>
+
+  <script>
+    let isEditMode = false; // Variable to track edit mode status
+    let profilePictureUrl = ""; // Variable to store profile picture URL
+
+
+    function getQueryParam() {
+            const params = new URLSearchParam(window.location.search);
+            return {
+                username: params.get('username'),
+                email: params.get('email'),
+                gender: params.get('gender'),
+                firstName: params.get('firstName'),
+                lastName: params.get('lastName'),
+                phone: params.get('phone'),
+                birthDate: params.get('birthDate')
+            };
+        }
+
+        window.onload = function() {
+            const userData = getQueryParam();
+            if (userData.username) {
+                // Display the username in the welcome message
+                document.getElementById('username').innerText = userData.username.toLocaleUpperCase();
+                
+                // Update the profile link to include user data
+                //http://127.0.0.1:5500/Frontend/homepage.html?username=Heli_Patel&email=heli@gmail.com&gender=Female
+                //http://127.0.0.1:5500/Frontend/User/profile.html
+                //const queryParams = `?username=${userData.username}&email=${userData.email}&gender=${userData.gender}`;
+                const queryParams = `?username=${encodeURIComponent(userData.username)}&email=${encodeURIComponent(userData.email)}&gender=${encodeURIComponent(userData.gender)}`;
+                document.getElementById('profile-link').href = `homepage.html${queryParams}`;
+            }
+        };
+
+
+
+
+
+
+
+    // Toggle edit mode for profile details
+    function toggleEditMode() {
+      isEditMode = !isEditMode;
+      const profilePicture = document.getElementById('profilePicture');
+      const editButton = document.getElementById('editProfileBtn');
+
+      if (isEditMode) {
+        profilePicture.classList.add('profile-picture-edit-mode');
+        editButton.textContent = 'Cancel';
+      } else {
+        profilePicture.classList.remove('profile-picture-edit-mode');
+        editButton.textContent = 'Edit';
+      }
+    }
+
+    // Change profile picture when clicked
+    function changeProfilePicture() {
+      if (isEditMode) {
+        document.getElementById('profilePictureInput').click();
+      }
+    }
+
+    // Update profile picture with selected file
+    function updateProfilePicture(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profilePictureUrl = e.target.result;
+          document.getElementById('profilePicture').style.backgroundImage = `url(${profilePictureUrl})`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Load profile picture from localStorage or set a default
+    function loadProfilePicture() {
+      const savedPicture = localStorage.getItem('profilePicture');
+      if (savedPicture) {
+        document.getElementById('profilePicture').style.backgroundImage = `url(${savedPicture})`;
+        profilePictureUrl = savedPicture;
+      } else {
+        document.getElementById('profilePicture').style.backgroundImage = "url('/images/profile.png')";
+      }
+    }
+
+    // Get query parameters from the URL
+    function getQueryParams() {
+      const queryParams = {};
+      const queryString = window.location.search.substring(1);
+      const queryArray = queryString.split("&");
+      queryArray.forEach(function (param) {
+        const pair = param.split("=");
+        queryParams[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      });
+      return queryParams;
+    }
+
+    // Load profile data from localStorage or server
+    window.onload = function () {
+      loadProfilePicture();
+      const userData = getQueryParams();
+      const savedProfile = sessionStorage.getItem('profileData');
+
+      if (savedProfile) {
+        const profileData = JSON.parse(savedProfile);
+        populateProfileFields(profileData);
+      } else {
+        fetchProfileFromServer(userData.email || 'default@example.com');
+      }
+
+      // Populate fields from URL query parameters
+      document.getElementById('username').innerText = userData.username || 'N/A';
+      document.getElementById('email').innerText = userData.email || 'N/A';
+      document.getElementById('gender').innerText = userData.gender || 'N/A';
+      document.getElementById('firstName').innerText = userData.firstName || 'N/A';
+      document.getElementById('lastName').innerText = userData.lastName || 'N/A';
+      document.getElementById('birthDate').innerText = userData.birthDate || 'N/A';
+      document.getElementById('phone').innerText = userData.phone || 'N/A';
+    };
+
+    // Populate profile fields with data
+    function populateProfileFields(data) {
+      document.getElementById('username').innerText = data.username || 'N/A';
+      document.getElementById('email').innerText = data.email || 'N/A';
+      document.getElementById('gender').innerText = data.gender || 'N/A';
+      document.getElementById('firstName').value = data.firstName || '';
+      document.getElementById('lastName').value = data.lastName || '';
+      document.getElementById('phone').value = data.phone || '';
+      document.getElementById('birthDate').value = data.birthDate ? new Date(data.birthDate).toISOString().substr(0, 10) : '';
+    }
+
+    // Fetch profile data from the server
+    function fetchProfileFromServer(email) {
+      fetch(`http://localhost:5500/api/profile/${email}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          populateProfileFields(data);
+          sessionStorage.setItem('profileData', JSON.stringify(data));
+        })
+        .catch(error => console.error('Error fetching profile:', error));
+    }
+
+    // Enable editing profile
+    document.getElementById('editProfileBtn').addEventListener('click', function () {
+      toggleEditMode(); // Toggle edit mode
+      const inputs = document.querySelectorAll('.info');
+      inputs.forEach(input => {
+        input.readOnly = !isEditMode;  // Enable or disable editing
+      });
+      document.getElementById('saveProfileBtn').style.display = isEditMode ? 'inline-block' : 'none'; // Show/hide save button
+    });
+
+    // Save updated profile and update sessionStorage
+    document.getElementById('saveProfileBtn').addEventListener('click', function () {
+      const updatedProfile = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        phone: document.getElementById('phone').value,
+        birthDate: document.getElementById('birthDate').value,
+        username: document.getElementById('username').innerText,
+        email: document.getElementById('email').innerText,
+        gender: document.getElementById('gender').innerText
+      };
+
+      // Send updated profile data to the backend
+      fetch('http://localhost:5001/api/profile/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProfile),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Profile updated successfully');
+        sessionStorage.setItem('profileData', JSON.stringify(updatedProfile));
+        toggleEditMode(); // Exit edit mode
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+
+    // Initialize profile picture on load
+    loadProfilePicture();
+  </script>    
+</body>
+</html>

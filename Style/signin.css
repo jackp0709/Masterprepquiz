@@ -1,0 +1,121 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+body{
+    background-color: #B3E3F8;
+}
+.container{
+    display: flex;
+}
+.image{
+max-width: 100%;
+width: auto;
+height: 100vh;
+flex:1;
+justify-content:end;
+}
+.image img{
+    max-height:99vh;
+    height: auto;
+}
+.form{
+    height: 100vh;
+    flex:3;
+    }
+.signup{
+        height: 40px;
+        background-color: #274681;
+        color: white; 
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px; 
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 20px; 
+        margin-top: 10px;
+    }
+.signup:hover{
+    background-color: rgb(82, 119, 222);
+}
+.logo{
+    background-image: url("/images/DASHBORAD2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    width: 380px;
+    margin:auto;
+}
+h3{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.loginform{
+    background-color: rgb(255, 255, 255);
+    width:380px;
+    height: 330px;
+    border-radius: 10px;
+    margin:auto;
+}
+.loginform input{
+    width:300px;
+    border: solid 2px white;
+    border-bottom-color: black;
+    transition: border-bottom-color 0.3 ease;
+    outline: none;
+    height: 20px;
+    font-size: 15px;
+}
+.loginform input:focus{
+    border-bottom-color: black;
+}
+.loginform label{
+    font-family:Geneva, Tahoma, sans-serif; 
+}
+.submit{
+    font-size: 25px;
+    color: white;
+    background-color:#274681;
+    margin-top: 45px;
+    margin-left: 35px;
+    border-radius: 5px;
+    width:80%;
+    height:40px;
+}
+.password{
+    width: 380px;
+    margin:auto;
+}
+.password input{
+    margin-left: 13px;
+    width:300px;
+
+}
+.password img{
+    margin-left: 10px;
+    width:25px;
+    
+}
+#signuplink{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width:290px;
+    margin-left: 280px;
+    margin-top: 15px;
+}
+#signuplink a{
+    text-decoration: none;
+}
+@media(max-width:1080px){
+    body{
+        background-color:#B3E3F8;
+    }
+    .image{
+        height: 100vh;
+    }
+
+}

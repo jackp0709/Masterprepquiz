@@ -1,0 +1,140 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+body{
+    background-color: #BCE6F8;
+}
+.container{
+    display: flex;
+    overflow: hidden;
+}
+.image{
+    max-width: 100%;
+    width: auto;
+    height: 100vh;
+    display: flex;
+    flex:1;
+    justify-content:center;
+    align-items: center;
+}
+.image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.form{
+    height: 99vh;
+    flex:1;
+    display: flex;
+    align-items: center;
+}
+h3{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 35px;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-left: 34px;
+    margin-top: 20px;
+}
+.loginform{
+    background-color: rgb(255, 255, 255);
+    width:500px;
+    height: 630px;
+    border-radius: 10px;
+    margin:auto;
+    font-size: 18px;
+}
+.loginform input{
+    width:430px;
+    border: solid 2px white;
+    border-bottom-color: black;
+    transition: border-bottom-color 0.3 ease;
+    outline: none;
+    height: 20px;
+    font-size: 20px;
+    margin: 0 auto;
+}
+.loginform input:focus{
+    border-bottom-color: black;
+}
+.loginform label{
+    font-family:Geneva, Tahoma, sans-serif; 
+}
+.loginform label{
+    font-family:Geneva, Tahoma, sans-serif; 
+}
+.form1{
+    margin-top: 5px;
+}
+#username{
+    margin-top: 7px;
+    margin-left: 38px;
+    transition: border-bottom-color 0.3 ease;
+}
+#email{
+    margin-top: 7px;
+    margin-left: 50px;
+}
+.submit{
+    font-size: 25px;
+    color: white;
+    background-color:#274681;
+    margin-top: 45px;
+    margin-left: 35px;
+    border-radius: 5px;
+    width:80%;
+    height:40px;
+}
+.password{
+    width: 410px;
+    margin:auto;
+}
+.password input{
+    margin-left: 3px;
+    width:367px;
+}
+.password img{
+    margin-left: 10px;
+    width:25px;
+    
+}
+#password1{
+    width: 400px;
+    margin-left: 48px;
+    margin-bottom: 38px;
+}
+#password{
+
+}
+#Gender{
+    font-size: 19px;
+}
+.gender{
+    margin-left: 49px;
+}
+.gender input{
+    margin-left: 10px;
+    width: 25px;
+}
+.gender-mf{
+    font-size: 20px;
+    margin-left: 35px;
+}
+#ef{
+    margin-left:32px;
+}
+#cf{
+    margin-top: 20px;
+    margin-left: 31px;
+}
+.message{
+    width:100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#message{
+    margin-top: 18px;
+}

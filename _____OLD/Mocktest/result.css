@@ -1,0 +1,208 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+h1{
+    font-size: 55px;
+width: 500px;
+margin: auto;
+}
+h6{
+    margin-left: 620px;
+font-size: 45px;
+margin-bottom: 20px;}
+
+
+h2{
+    margin-left: 620px;
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+
+#summary{
+width: 400px;
+padding-left: 110px;
+margin: auto;
+font-size: 22px;
+}
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+#results-chart {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 0 auto; /* Center the chart */
+}
+
+
+
+
+
+#timer {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#summary, #unattempted, #incorrect {
+    margin-bottom: 20px;
+}
+
+#unattempted-list, #incorrect-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#unattempted-list li, #incorrect-list li {
+    margin-bottom: 10px;
+}
+
+/* Styling for pie chart */
+.small-chart {
+    width: 150px; /* Adjust width to make the chart smaller */
+    height: 150px; /* Adjust height to make the chart smaller */
+    /* Ensure the canvas is a block-level element */
+    display: block;
+    margin: 0 auto; /* Center the canvas horizontally */
+}
+
+canvas {
+    width: 80%;
+    height: 300px; /* Adjust as needed */
+    display: block;
+}
+
+a {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #007BFF;
+}
+#topic-bar-chart {
+    max-width: 700px;  /* Set max width to control the chart size */
+    height: 400px;     /* Set the height of the chart */
+    margin: 20px auto; /* Center the chart horizontally and add margin */
+    background-color: #f9f9f9; /* Optional: Add a light background */
+    padding: 10px;     /* Add padding around the chart */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow for better visual appeal */
+    border-radius: 8px; /* Add rounded corners */
+}
+#back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#back-button:hover {
+    background-color: #0056b3;
+}
+#topic-summary p{
+text-align: center;
+display: block;
+font-size: 18px;
+}
+
+p{
+display: inline-block;
+margin-left: 20px;
+
+}
+
+
+
+
+.blue{
+    margin-left: 20px;
+display: inline-block;
+height: 20px;
+width: 20px;
+border:solid 2px blue;
+background-color: blue;
+}
+
+.yellow{
+    margin-left: 20px;
+display: inline-block;
+height: 20px;
+width: 20px;
+border:solid 2px yellow;
+background-color: yellow;
+}
+.green{
+    margin-left: 20px;
+display: inline-block;
+height: 20px;
+width: 20px;
+border:solid 2px green;
+background-color: green;
+}
+.orange{
+    margin-left: 50px;
+display: inline-block;
+height: 20px;
+width: 20px;
+border:solid 2px orange;
+background-color: orange;
+}
+.purple{
+    margin-left: 20px;
+display: inline-block;
+height: 20px;
+width: 20px;
+border:solid 2px purple;
+background-color: purple;
+}
+
+
+
+#answer-key{
+max-width: 100%;
+width: auto;
+max-height: fit-content;
+background-color: #3b96f7;
+}
+
+#answer-list {
+    list-style-type: none; 
+    padding: 0;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    width: 80%; 
+    margin: 20px auto;
+    position: relative;
+    font-size: 18px;
+}
+
+#answer-list li {
+    width: calc(50% - 10px); 
+    margin-bottom: 10px; 
+}
+
+
+
+#answer-list::before {
+    content: ''; 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; 
+    width: 2px; 
+    background-color: #000; 
+    z-index: 1; 
+}
